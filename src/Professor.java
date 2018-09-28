@@ -1,3 +1,5 @@
+
+// A classe professor poderia ser abstrata, já que ela nunca é instanciada
 public class Professor {
 
     private String nome;

@@ -7,7 +7,7 @@ public class Aluno {
     private String nome;
     private String sobrenome;
     private Integer codigoAluno;
-    private List<Curso> cursoMatriculado = new ArrayList<>();
+    private List<Curso> cursoMatriculado = new ArrayList<>(); // este atributo nunca foi usado, me parece uma boa intenção. Faltou implementar
 
 
     public Aluno(String nome, String sobrenome, Integer codigoAluno) {

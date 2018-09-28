@@ -41,7 +41,8 @@ public class DigitalHouseManager {
     }
 
     public void excluirCurso(Integer codigoCurso) {
-
+        // Este metodo tem um bug. Esta comparando curso (do tipo Curso) com codigoCurso (do tipo Integer)
+        // o correto seria if(curso.getCodigoCurso().equals(codigoCurso))
         for (Curso curso : listaDeCurso) {
             if (curso.equals(codigoCurso)) {
                 listaDeCurso.remove(codigoCurso);
@@ -78,7 +79,7 @@ public class DigitalHouseManager {
 
         Aluno aluno = new Aluno(nome, sobrenome, codigoAluno);
         listaDeAluno.add(aluno);
-        System.out.println("Bem vindo " + nome + "!");
+        System.out.println("Bem vindo " + nome + "!"); 
         System.out.println("Voce faz parte da Digital House!");
         System.out.println("-----------------------------------");
 
@@ -97,7 +98,7 @@ public class DigitalHouseManager {
         Curso curso = buscarCursoPorCodigo(codigoCurso);
         Aluno aluno = buscarAlunoPorCodigo(codigoAluno);
 
-        if (curso.adicionarUmAluno(aluno)) {
+        if (curso.adicionarUmAluno(aluno)) { // boa! Essa é a logica esperada
             Matricula matricula = new Matricula(aluno, curso, LocalDateTime.now());
             System.out.println("A matricula foi realizada com sucesso!");
             listaDeMatricula.add(matricula);
@@ -114,7 +115,7 @@ public class DigitalHouseManager {
 
         for (Professor professor : listaDeProfessor) {
             if (professor.getCodigoProfessor() == codigoProfessorTitular) {
-                professorTitular = (ProfessorTitular) professor;
+                professorTitular = (ProfessorTitular) professor; // Gostei que vc usou o casting aqui, mas é importante tratar a excecao
                 System.out.println("O professor titular " + professorTitular.getNome() + " foi alocado com sucesso!");
             }
             if (professor.getCodigoProfessor() == codigoProfessorAdjunto) {
@@ -122,9 +123,14 @@ public class DigitalHouseManager {
                 System.out.println("O professor adjunto " + professorAdjunto.getNome() + " foi alocado com sucesso!");
             }
         }
+
+        // Ao inves de iterar a listaDeCurso, poderia ter utilizado um metodo que vc mesmo criou
+        // Curso curso = buscarCursoPorCodigo(codigoCurso);
+        // curso.setProfessorTitular(professorTitular);
+        // curso.setProfessorTitular(professorTitular);
         for (Curso curso : listaDeCurso) {
             if (curso.getCodigoCurso() == codigoCurso) {
-                try {
+                try { // boa!! Tratamento de excecao é uma parte essencial do código
                     curso.setProfessorAdjunto(professorAdjunto);
                 } catch (NullPointerException e) {
                     System.out.println("Professor Adjunto nao encontrado");
